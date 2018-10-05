@@ -16,13 +16,15 @@ client = discord.Client()
 
 players = {}
 
+mmGames = [1]
+
 #Within avatars, each key is a day of the week, with 0 being Monday, and 6 being Sunday.
 avatars = {
     0:{'image': 'dedede.jpg', 'name': 'King BeepBeepBeep'},
     1:{'image': 'diddy.jpg', 'name': 'Diddy Droid'},
     2:{'image': 'donkey.jpg', 'name': 'Robo Kong'},
     3:{'image': 'duckhunt.jpg', 'name': 'Duck Bot'},
-    4:{'image': 'senorgw.jpg', 'name': 'Señor Game&Watch'},
+    4:{'image': 'senorgw(nobueno).jpg', 'name': 'Señor Game&Watch'},
     5:{'image': 'kirby.jpg', 'name': 'Kirbit'},
     6:{'image': 'falco.jpg', 'name': 'Falc0'}
 }
@@ -81,6 +83,13 @@ async def on_message(message):
         msg = "https://i.kym-cdn.com/entries/icons/original/000/024/221/upload.png"
         await client.send_message(message.channel, msg)
 
+    if message.content.startswith('!mm'):
+        msg = message.content.format(message)
+        arguments = msg.split(" ")
+        if mmGames[0] == None:
+            mmGames[0] = mastermind.Game()
+        if mmGames[0] != None:
+            print("To be continued")
 
 def searchVideo(request):
 
