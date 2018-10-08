@@ -10,13 +10,15 @@ colors = {
     'pink':{'emoji': ':sparkling_heart:'}
 }
 
+colorList = ['red', 'yellow', 'green', 'blue', 'purple', 'pink']
+
 class Move:
     def __init__(self, color1, color2, color3, color4):
         self.order = []
-        self.order[0] = color1
-        self.order[1] = color2
-        self.order[2] = color3
-        self.order[3] = color4
+        self.order.append(color1)
+        self.order.append(color2)
+        self.order.append(color3)
+        self.order.append(color4)
 
 
 class Game:
@@ -24,54 +26,59 @@ class Game:
         self.ongoing = False
         self.start = datetime.datetime.now()
         self.turnCount = 0
-        self.answer = Move(random.choice(colors), random.choice(colors),
-                           random.choice(colors), random.choice(colors))
+        self.answer = Move(random.choice(colorList), random.choice(colorList),
+                           random.choice(colorList), random.choice(colorList))
+        print(self.answer.order)
 
     def guess(self, color1, color2, color3, color4):
         blackpegs = 0
         whitepegs = 0
         move = Move(color1, color2, color3, color4)
-        if move.order[0] == color1:
+        if move.order[0] == self.answer.order[0]:
             blackpegs += 1
-        if move.order[1] == color2:
+        if move.order[1] == self.answer.order[1]:
             blackpegs += 1
-        if move.order[2] == color3:
+        if move.order[2] == self.answer.order[2]:
             blackpegs += 1
-        if move.order[3] == color4:
+        if move.order[3] == self.answer.order[3]:
             blackpegs += 1
         for x in self.answer.order:
             if move.order[0] == x and x != 0:
                 whitepegs += 1
+                break
         for x in self.answer.order:
             if move.order[1] == x and x != 1:
                 whitepegs += 1
+                break
         for x in self.answer.order:
             if move.order[2] == x and x != 2:
                 whitepegs += 1
+                break
         for x in self.answer.order:
             if move.order[3] == x and x != 3:
                 whitepegs += 1
+                break
 
-        playerMove = '*Your move: *'
+        playerMove = '***Your move:  ***'
 
         for x in move.order:
             playerMove += colors[x]['emoji']+' '
 
         if self.answer.order == move.order:
             self.ongoing = False
-            return playerMove + '\n'+' ***You Win!*** :smile:'
+            return playerMove + '\n'+'***You Win!***   :smile:'
 
         self.turnCount += 1
 
         if self.turnCount >= 12:
             self.ongoing = False
-            return playerMove + '\n'+' ***You Lose!*** :cry: '
+            return playerMove + '\n'+'***You Lose!***   :cry: '
 
         else:
             return playerMove +'\n'+\
-            '*White Pegs:* '+str(whitepegs)+'\n'+\
+            '*White Pegs:* '+str(whitepegs-blackpegs)+'\n'+\
             '*Black Pegs:* '+str(blackpegs)+'\n'+\
-            '*Turns left:* '+(12-self.turnCount)
+            '*Turns left:* '+str(12-self.turnCount)
 
 
 

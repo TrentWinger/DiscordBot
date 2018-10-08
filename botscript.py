@@ -16,7 +16,7 @@ client = discord.Client()
 
 players = {}
 
-mmGames = [1]
+mmGames = []*10
 
 #Within avatars, each key is a day of the week, with 0 being Monday, and 6 being Sunday.
 avatars = {
@@ -86,11 +86,28 @@ async def on_message(message):
     if message.content.startswith('!mm'):
         msg = message.content.format(message)
         arguments = msg.split(" ")
-        if mmGames[0] == None:
-            mmGames[0] = mastermind.Game()
-        if mmGames[0] != None:
-            print("To be continued")
-
+        if arguments[1] == "start":
+            if len(mmGames) == 0:
+                mmGames.append(mastermind.Game())
+                await client.send_message(message.channel, "**New MasterMind game has been started!**")
+            elif mmGames[0] != None:
+                    if not mmGames[0].ongoing:
+                         mmGames[0] = mastermind.Game()
+                         await client.send_message(message.channel, "**New MasterMind game has been started!**")
+                    else:
+                        await client.send_message(message.channel, "**There's currently an ongoing game!**")
+            else:
+                await client.send_message(message.channel, "**We've reached the limit of 10**")
+        elif arguments[1] == "guess":
+            args = [arguments[2], arguments[3], arguments[4], arguments[5]]
+            for x in args:
+                if x not in mastermind.colorList:
+                    await client.send_message(message.channel, "I don't recognize one or more of those colors.")
+                    break
+                else:
+                   rtn = mmGames[0].guess(arguments[2], arguments[3], arguments[4], arguments[5])
+                   await client.send_message(message.channel, rtn)
+                   break
 def searchVideo(request):
 
     search = urllib.parse.quote(request)
@@ -134,13 +151,15 @@ async def on_ready():
     print(client.user.id)
     print('------')
 
-    for x in avatars:
-        if x == botlogic.checkDay():
-            with open(avatars[x]['image'], 'rb') as f:
-                await client.edit_profile(avatar=f.read())
-                await client.edit_profile(username=avatars[x]['name'])
-                print (avatars[x]['name']+' has been selected')
-
+    try:
+        for x in avatars:
+            if x == botlogic.checkDay():
+                with open(avatars[x]['image'], 'rb') as f:
+                    await client.edit_profile(avatar=f.read())
+                    await client.edit_profile(username=avatars[x]['name'])
+                    print (avatars[x]['name']+' has been selected')
+    except:
+        print("Too many requests for the hour.")
 
     print('------')
 
