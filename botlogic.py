@@ -88,22 +88,86 @@ def rollCharacter():
     #############################################################
 
     races = {
-    	'Aarakocra':{'str': 0,'dex': 2,'con': 0, 'int': 0, 'wis': 1, 'cha': 0},
-        'Aasimar':{'str': 0, 'dex': 0, 'con': 0, 'int': 0, 'wis': 0, 'cha': 2},
-        'Bugbear':{'str': 2, 'dex': 1, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0},
-        'Centaur':{'str': 2, 'dex': 0, 'con': 0, 'wis': 1, 'cha': 0},
-        'Changeling':{'str': 0, 'dex': 0, 'con': 0, 'int': 0, 'wis': 0, 'cha': 2},
-        'Dragonborn':{'str': 2, 'dex': 0, 'con': 0, 'int': 0, 'wis': 0, 'cha': 1},
-        'Dwarf':{'str': 0, 'dex': 0, 'con': 2, 'wis': 0, 'cha': 0},
-        'Elf':{'str': 0, 'dex': 2, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0},
-        'Feral Tiefling':{'str': 0, 'dex': 2, 'con': 0, 'int': 1, 'wis': 0, 'cha': 0},
-        'Firbolg':{'str': 1, 'dex': 0, 'con': 0, 'int': 0, 'wis': 2, 'cha': 0},
-        'Genasi':{'str': 0, 'dex': 0, 'con': 2, 'int': 0, 'wis': 0, 'cha': 0},
-        'Gith':{'str': 0, 'dex': 0, 'con': 0, 'int': 1, 'wis': 0, 'cha': 0},
-        'Gnome':{'str': 0, 'dex': 0, 'con': 0, 'int': 2, 'wis': 0, 'cha': 0},
-        'Goblin':{'str': 0, 'dex': 2, 'con': 1, 'int': 0, 'wis': 0, 'cha': 0},
-        'Goliath':{'str': 2, 'dex': 0, 'con': 1, 'int': 0, 'wis': 0, 'cha': 0},
-        'Half-Elf':{'str': 0, 'dex': 0, 'con': 0, 'int': 0, 'wis': 0, 'cha': 2},
+    	'Aarakocra':{'str': 0,'dex': 2,'con': 0, 'int': 0, 'wis': 1, 'cha': 0,
+                     'traits':{'Flight, Talons'},
+                     'actions': {},
+                     'languages': {'Common', 'Aarakocra'}
+                    },
+        'Aasimar':{'str': 0, 'dex': 0, 'con': 0, 'int': 0, 'wis': 0, 'cha': 2,
+                   'traits':{'Darkvision, Celestial Resistance, Light Bearer'},
+                   'actions':{'Healing Hands'},
+                   'languages': {'Common', 'Celestial'}
+                   },
+        'Bugbear':{'str': 2, 'dex': 1, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0,
+                   'traits':{'Darkvision', 'Long-Limbed', 'Powerful Build', 'Sneaky'},
+                   'actions':{'Surprise Attack'},
+                   'languages':{'Common', 'Goblin'}
+                   },
+        'Centaur':{'str': 2, 'dex': 0, 'con': 0, 'wis': 1, 'cha': 0,
+                   'traits':{'Hooves','Equine Build', 'Survivor', 'Hybrid Nature'},
+                   'actions':{'Charge'},
+                   'languages':{'Common', 'Sylvan'}
+                   },
+        'Changeling':{'str': 0, 'dex': 0, 'con': 0, 'int': 0, 'wis': 0, 'cha': 2,
+                      'traits':{'Changeling Instincts', 'Divergent Persona'},
+                      'actions':{'Change Appearance', 'Unsettling Visage'},
+                      'languages':{'Common'} #Choice of more
+                      },
+        'Dragonborn':{'str': 2, 'dex': 0, 'con': 0, 'int': 0, 'wis': 0, 'cha': 1,
+                      'traits':{'Damage Resistance'},
+                      'actions':{'Breath Weapon'}, #Based on ancestry
+                      'languages':{'Common', 'Draconic'}
+                      },
+        'Dwarf':{'str': 0, 'dex': 0, 'con': 2, 'wis': 0, 'cha': 0,
+                 'traits':{'Darkvision', 'Dwarven Resilience', 'Dwarven Combat Training', 'Tool Proficiency', 'Stonecunning'},
+                 'actions':{},
+                 'languages':{'Common', 'Dwarvish'}
+                 },
+        'Elf':{'str': 0, 'dex': 2, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0,
+               'traits':{'Darkvision', 'Keen Senses', 'Fey Ancestry', 'Trance',},
+               'actions':{},
+               'languages':{'Common', 'Elvish'}
+               },
+        'Feral Tiefling':{'str': 0, 'dex': 2, 'con': 0, 'int': 1, 'wis': 0, 'cha': 0,
+                          'traits':{'Darkvision', 'Hellish Resistance', 'Infernal Legacy'},
+                          'actions':{},
+                          'languages':{'Common', 'Infernal'}
+                          },
+        'Firbolg':{'str': 1, 'dex': 0, 'con': 0, 'int': 0, 'wis': 2, 'cha': 0,
+                   'traits':{'Firbolg Magic', 'Powerful Build', 'Speech of Beast and Leaf'},
+                   'actions':{'Hidden Step'},
+                   'languages':{'Common', 'Elvish', 'Giant'}
+                   },
+        'Genasi':{'str': 0, 'dex': 0, 'con': 2, 'int': 0, 'wis': 0, 'cha': 0,
+                  'traits':{}, #Varies based on type.
+                  'actions':{},
+                  'languages':{'Common', 'Primordial'}
+                  },
+        'Gith':{'str': 0, 'dex': 0, 'con': 0, 'int': 1, 'wis': 0, 'cha': 0,
+                'traits':{},
+                'actions':{}, #Varies based on type
+                'languages':{'Common', 'Gith'}
+                },
+        'Gnome':{'str': 0, 'dex': 0, 'con': 0, 'int': 2, 'wis': 0, 'cha': 0,
+                 'traits':{'Darkvision', 'Gnome Cunning'},
+                 'actions':{}, #Varies based on type
+                 'languages':{'Common', 'Gnomish'}
+                 },
+        'Goblin':{'str': 0, 'dex': 2, 'con': 1, 'int': 0, 'wis': 0, 'cha': 0,
+                  'traits':{'Darkvision'},
+                  'actions':{'Fury of the Small', 'Nimble Escape'},
+                  'languages':{'Common', 'Goblin'}
+                  },
+        'Goliath':{'str': 2, 'dex': 0, 'con': 1, 'int': 0, 'wis': 0, 'cha': 0,
+                   'traits':{'Natural Athlete', 'Powerful Build', 'Mountain Born'},
+                   'actions':{"Stone's Endurance"},
+                   'languages':{'Common', 'Giant'}
+                   },
+        'Half-Elf':{'str': 0, 'dex': 0, 'con': 0, 'int': 0, 'wis': 0, 'cha': 2,
+                    'traits':{'Darkvision', 'Fey Ancestry', 'Skill Versatility'}, #Additions based on type
+                    'actions':{},
+                    'languages':{'Common', 'Elvish', 'Choice'}
+                    },
         'Half-Orc':{'str': 2, 'dex': 0, 'con': 1, 'int': 0, 'wis': 0, 'cha': 0},
         'Halfling':{'str': 0, 'dex': 2, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0},
         'Hobgoblin':{'str': 0, 'dex': 0, 'con': 2, 'int': 1, 'wis': 0, 'cha': 0},
