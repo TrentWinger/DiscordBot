@@ -8,6 +8,7 @@ import youtube_dl
 import urllib.request
 import bs4
 import random
+import dndlogic
 
 file = open("TOKEN.txt")
 TOKEN = file.readline()
@@ -46,7 +47,7 @@ async def on_message(message):
         await client.send_message(message.channel, msg)
 
     if message.content.startswith('!rollcharacter'):
-        msg = 'Here is your DnD character! \n\n'+botlogic.rollCharacter().format(message)
+        msg = 'Here is your DnD character! \n\n'+dndlogic.rollCharacter().format(message)
         await client.send_message(message.channel, msg)
 
     if message.content.startswith('!kingdedede'):
