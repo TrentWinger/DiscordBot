@@ -51,12 +51,12 @@ def rollCharacter():
                 'Gith', 'Gnome', 'Goblin', 'Goliath', 'Half-Elf', 'Halfling', 'Half-Orc',
                 'Hobgoblin', 'Human', 'Kalashtar', 'Kenku', 'Kobold', 'Lizardfolk', 'Loxodon',
                 'Minotaur', 'Orc', 'Shifter', 'Simic Hybrid', 'Tabaxi', 'Tiefling', 'Tortle',
-                'Triton', 'Vedalken', 'Viashino', 'Warforged', 'Yuan-ti Pureblood']
+                'Triton', 'Vedalken', 'Viashino', 'Warforged', 'Yuan-ti Pureblood'] #This contains a list of race names as strings
 
     classList = ['Barbarian', 'Bard', 'Cleric', 'Druid', 'Fighter', 'Monk', 'Paladin',
-                 'Ranger', 'Rogue', 'Sorcerer', 'Warlock', 'Wizard', 'Blood Hunter']
+                 'Ranger', 'Rogue', 'Sorcerer', 'Warlock', 'Wizard', 'Blood Hunter'] #This contains a list of class names as strings
 
-    charAlignment = str
+    charAlignment = str #Create a string to append later
 
     moralList = ['Lawful', 'Neutral', 'Chaotic']
     alignList= ['Good', 'Neutral', 'Evil']
@@ -69,19 +69,14 @@ def rollCharacter():
     else:
         charAlignment = charMoral+" "+charAlign
 
+    statList = [] #Declaring a list to add stat rolls to.
 
-
-    charStr = rollStats()
-    charDex = rollStats()
-    charCon = rollStats()
-    charInt = rollStats()
-    charWis = rollStats()
-    charCha = rollStats()
-
+    for x in range(6): #Do this 6 times, for each ability score available.
+        statList.append(rollStats())
+    statList.sort(reverse = True) #Sort it in reverse so that the greatest values are first.
 
     charRace = random.choice(raceList)
     charClass = random.choice(classList)
-
 
     #############################################################
     # From here until the next block is code for race modifiers.#
@@ -275,13 +270,45 @@ def rollCharacter():
                              'actions':{},
                              'languages':{'Common', 'Abyssal', 'Draconic'}
                              }
-	}
+	} #A dictionary of races, with their racial bonuses, traits, actions, and languages.
+    classes ={
+        'Barbarian':{'primary': 'str', 'secondary': 'con'},
+        'Bard':{'primary': 'cha', 'secondary': 'dex'},
+        'Cleric':{'primary':'wis','secondary':'str'},
+        'Druid':{'primary':'wis', 'secondary':'con'},
+        'Fighter':{'primary':'str','secondary': 'con'},
+        'Monk':{'primary':'dex','secondary':'dex'},
+        'Paladin':{'primary':'str','secondary':'cha'},
+        'Ranger':{'primary':'dex','secondary':'wis'},
+        'Rogue':{'primary':'dex','secondary':'wis'},
+        'Sorcerer':{'primary':'cha','secondary':'con'},
+        'Warlock':{'primary':'cha','secondary':'con'},
+        'Wizard':{'primary':'int','secondary':'con'},
+        'Blood Hunter':{'primary':'str','secondary':'dex'},
+    }#A dictionary of classes, with their "preferred" stats.
 
-    charStr += races[charRace]['str']
-    charDex += races[charRace]['dex']
-    charCon += races[charRace]['con']
-    charWis += races[charRace]['wis']
-    charCha += races[charRace]['cha']
+    stats = ['str', 'dex', 'con', 'int', 'wis', 'cha']  #A list of each stat possible
+    stats.remove(classes[charClass]['primary']) #Remove the first and second from the list so that
+    stats.remove(classes[charClass]['secondary'])#We can randomize the "unpreferred" stats
+    random.shuffle(stats)#Randomize the leftover stats.
+
+    prefStats = [] #creating a list with the preferred stats at the beginning
+    prefStats.append(classes[charClass]['primary'])
+    prefStats.append(classes[charClass]['secondary'])
+    for x in range(4): #Add the rest of the stats to the preferred list. Order does not matter here.
+        prefStats.append(stats[x])
+
+    # Thanks to Matt for this code
+    statMatch = {}
+    for x in range(6):
+        statMatch.update({prefStats[x]: statList[x]}) #Updating a dictionary with the corresponding index values.
+
+    charStr = statMatch['str']
+    charDex = statMatch['dex']
+    charCon = statMatch['con']
+    charInt = statMatch['int']
+    charWis = statMatch['wis']
+    charCha = statMatch['cha']
 
     if charRace == 'Changeling':
         choice = random.randint(1,2)
@@ -334,6 +361,7 @@ def rollCharacter():
     ###########################
 
 	#Str, Dex, Con, Int, Wis, Cha
+
 
     charFeatures = ''
     for x in races[charRace]['traits']:
