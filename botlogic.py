@@ -168,27 +168,113 @@ def rollCharacter():
                     'actions':{},
                     'languages':{'Common', 'Elvish', 'Choice'}
                     },
-        'Half-Orc':{'str': 2, 'dex': 0, 'con': 1, 'int': 0, 'wis': 0, 'cha': 0},
-        'Halfling':{'str': 0, 'dex': 2, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0},
-        'Hobgoblin':{'str': 0, 'dex': 0, 'con': 2, 'int': 1, 'wis': 0, 'cha': 0},
-        'Human':{'str': 1, 'dex': 1, 'con': 1, 'int': 1, 'wis': 1, 'cha': 1},
-        'Kalashtar':{'str': 0, 'dex': 0, 'con': 0, 'int': 0, 'wis': 1, 'cha': 1},
-        'Kenku':{'str': 0, 'dex': 2, 'con': 0, 'int': 0, 'wis': 1, 'cha': 0},
-        'Kobold':{'str': -2, 'dex': 2, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0},
-        'Lizardfolk':{'str': 0, 'dex': 0, 'con': 2, 'int': 0, 'wis': 1, 'cha': 0},
-        'Loxodon':{'str': 0, 'dex': 0, 'con': 2, 'int': 0, 'wis': 1, 'cha': 0},
-        'Minotaur':{'str': 2, 'dex': 0, 'con': 1, 'int': 0, 'wis': 0, 'cha': 0},
-        'Orc':{'str': 2, 'dex': 0, 'con': 1, 'int': -1, 'wis': 0, 'cha': 0},
-        'Shifter':{'str': 0, 'dex': 1, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0},
-        'Simic Hybrid':{'str': 0, 'dex': 0, 'con': 2, 'int': 0, 'wis': 0, 'cha': 0},
-        'Tabaxi':{'str': 0, 'dex': 2, 'con': 0, 'int': 0, 'wis': 0, 'cha': 1},
-        'Tiefling':{'str': 0, 'dex': 2, 'con': 0, 'int': 1, 'wis': 0, 'cha': 0},
-        'Tortle':{'str': 2, 'dex': 0, 'con': 0, 'int': 0, 'wis': 1, 'cha': 0},
-        'Triton':{'str': 1, 'dex': 0, 'con': 1, 'int': 0, 'wis': 0, 'cha': 1},
-        'Vedalken':{'str': 0, 'dex': 0, 'con': 0, 'int': 2, 'wis': 1, 'cha': 0},
-        'Viashino':{'str': 1, 'dex': 2, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0},
-        'Warforged':{'str': 0, 'dex': 0, 'con': 1, 'int': 0, 'wis': 0, 'cha': 0},
-        'Yuan-ti Pureblood':{'str': 0, 'dex': 0, 'con': 0, 'int': 1, 'wis': 0, 'cha': 2}
+        'Half-Orc':{'str': 2, 'dex': 0, 'con': 1, 'int': 0, 'wis': 0, 'cha': 0,
+                    'traits':{'Darkvision', 'Menacing'},
+                    'actions':{'Relentless Endurance', 'Savage Attacks'},
+                    'languages':{'Common', 'Orc'}
+                    },
+        'Halfling':{'str': 0, 'dex': 2, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0,
+                    'traits':{'Lucky', 'Brave', 'Halfling Nimbleness'},
+                    'actions':{''},
+                    'languages':{'Common', 'Halfling'}
+                    },
+        'Hobgoblin':{'str': 0, 'dex': 0, 'con': 2, 'int': 1, 'wis': 0, 'cha': 0,
+                     'traits':{'Darkvision', 'Martial Training'},
+                     'actions':{'Saving Faces'},
+                     'languages':{'Common', 'Goblin'},
+                     },
+        'Human':{'str': 1, 'dex': 1, 'con': 1, 'int': 1, 'wis': 1, 'cha': 1,
+                 'traits':{''},
+                 'actions':{''}, #Human has subraces.
+                 'languages':{'Common', 'Choice'}
+                 },
+        'Kalashtar':{'str': 0, 'dex': 0, 'con': 0, 'int': 0, 'wis': 1, 'cha': 1,
+                     'traits':{'Dual Mind', 'Mental Discipline', 'Psychic Glamour', 'Severed from Dreams'},
+                     'actions':{'Mind Link'},
+                     'languages':{'Common', 'Quori', 'Choice'}
+                     },
+        'Kenku':{'str': 0, 'dex': 2, 'con': 0, 'int': 0, 'wis': 1, 'cha': 0,
+                 'traits':{'Kenku Training'},
+                 'actions':{'Expert Forgery', 'Mimicry'},
+                 'languages':{'Common', 'Auran'}
+                 },
+        'Kobold':{'str': -2, 'dex': 2, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0,
+                  'traits':{'Darkvision', 'Pack Tactics', 'Sunlight Sensitivity'},
+                  'actions':{'Grovel, Cower, and Beg'},
+                  'languages':{'Common', 'Draconic'}
+                  },
+        'Lizardfolk':{'str': 0, 'dex': 0, 'con': 2, 'int': 0, 'wis': 1, 'cha': 0,
+                      'traits':{"Hold Breath", "Hunter's Lore", "Natural Armor",},
+                      'actions':{'Bite', "Cunning Artisan", "Hungry Jaws"},
+                      'languages':{'Common', 'Draconic'}
+                      },
+        'Loxodon':{'str': 0, 'dex': 0, 'con': 2, 'int': 0, 'wis': 1, 'cha': 0,
+                   'traits':{'Powerful Build', 'Loxodon Bravery', 'Natural Armor', "Mason's Proficiency"
+                            'Stonecunning', 'Keen Smell'
+                            },
+                   'actions':{},
+                   'languages':{'Common'},
+                   },
+        'Minotaur':{'str': 2, 'dex': 0, 'con': 1, 'int': 0, 'wis': 0, 'cha': 0,
+                    'traits':{'Menacing', 'Hybrid Nature'},
+                    'actions':{'Horns', 'Goring Rush', 'Hammering Horns'},
+                    'languages':{'Common', 'Minotaur'}
+                    },
+        'Orc':{'str': 2, 'dex': 0, 'con': 1, 'int': -1, 'wis': 0, 'cha': 0,
+               'traits':{'Darkvision', 'Menacing', 'Powerful Build'},
+               'actions':{'Aggressive'},
+               'languages':{'Common', 'Orc'}
+               },
+        'Shifter':{'str': 0, 'dex': 1, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0,
+                   'traits':{'Darkvision', 'Keen Senses'},
+                   'actions':{'Shifting'},
+                   'languages':{'Common'}
+                   },
+        'Simic Hybrid':{'str': 0, 'dex': 0, 'con': 2, 'int': 0, 'wis': 0, 'cha': 0,
+                        'traits':{'Darkvision'},
+                        'actions':{},
+                        'languages':{'Common', 'Elvish'}
+                        },
+        'Tabaxi':{'str': 0, 'dex': 2, 'con': 0, 'int': 0, 'wis': 0, 'cha': 1,
+                  'traits':{'Darkvision', "Cat's Talent"},
+                  'actions':{'Feline Agility'},
+                  'languages':{'Common', 'Choice'}
+                  },
+        'Tiefling':{'str': 0, 'dex': 2, 'con': 0, 'int': 1, 'wis': 0, 'cha': 0,
+                    'traits':{'Darkvision', 'Hellish Resistance', 'Infernal Legacy'},
+                    'actions':{},
+                    'languages':{'Common', 'Infernal'}
+                    },
+        'Tortle':{'str': 2, 'dex': 0, 'con': 0, 'int': 0, 'wis': 1, 'cha': 0,
+                  'traits':{'Natural Armor', 'Survival Instinct'},
+                  'actions':{'Hold Breath', 'Shell Defense', 'Claws'},
+                  'languages':{'Common', 'Aquan'}
+                  },
+        'Triton':{'str': 1, 'dex': 0, 'con': 1, 'int': 0, 'wis': 0, 'cha': 1,
+                  'traits':{'Amphibious', 'Emissary of the Sea', 'Guardian of the Depths'},
+                  'actions':{'Control Air and Water'},
+                  'languages':{'Common', 'Primordial'}
+                  },
+        'Vedalken':{'str': 0, 'dex': 0, 'con': 0, 'int': 2, 'wis': 1, 'cha': 0,
+                    'traits':{'Veldaken Dispassion', 'Tireless Precision'},
+                    'actions':{},
+                    'languages':{'Common'}
+                    },
+        'Viashino':{'str': 1, 'dex': 2, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0,
+                    'traits':{'Wiry Frame'},
+                    'actions':{'Bite', 'Lashing Tail'},
+                    'languages':{'Common', 'Draconic'}
+                    },
+        'Warforged':{'str': 0, 'dex': 0, 'con': 1, 'int': 0, 'wis': 0, 'cha': 0,
+                     'traits':{'Warforged Resilience', "Sentry's Rest", 'Integrated Protection'},
+                     'actions':{},
+                     'languages':{'Common'}
+                     },
+        'Yuan-ti Pureblood':{'str': 0, 'dex': 0, 'con': 0, 'int': 1, 'wis': 0, 'cha': 2,
+                             'traits':{'Darkvision', 'Innate Spellcasting', 'Magic Resistance', 'Poison Immunity'},
+                             'actions':{},
+                             'languages':{'Common', 'Abyssal', 'Draconic'}
+                             }
 	}
 
     charStr += races[charRace]['str']
@@ -249,15 +335,38 @@ def rollCharacter():
 
 	#Str, Dex, Con, Int, Wis, Cha
 
-    rtn = 'Race: '+str(charRace)+'\n' +\
-          'Class: '+str(charClass)+'\n\n' +\
-          'Strength: '+str(charStr)+'\n' +\
-          'Dexterity: '+str(charDex)+'\n' +\
-          'Constitution: '+str(charCon)+'\n' +\
-          'Intelligence: '+str(charInt)+'\n' +\
-          'Wisdom: '+str(charWis)+'\n' +\
-          'Charisma: '+str(charCha)+'\n\n'+\
-          'Alignment: '+charAlignment
+    charFeatures = ''
+    for x in races[charRace]['traits']:
+        charFeatures += x
+        charFeatures +=', '
+
+    for x in races[charRace]['actions']:
+        charFeatures += x
+        charFeatures +=', '
+
+    if charFeatures.endswith(', '):
+        charFeatures = charFeatures[:-2]
+
+    charLanguages = ''
+
+    for x in races[charRace]['languages']:
+        charLanguages += x
+        charLanguages +=', '
+    if charLanguages.endswith(', '):
+        charLanguages = charLanguages[:-2]
+
+
+    rtn = '**Race: **'+str(charRace)+'\n' +\
+          '**Class: **'+str(charClass)+'\n' + \
+          '**Alignment: **' + charAlignment+'\n\n'\
+          '**Strength: **'+str(charStr)+'\n' +\
+          '**Dexterity: **'+str(charDex)+'\n' +\
+          '**Constitution: **'+str(charCon)+'\n' +\
+          '**Intelligence: **'+str(charInt)+'\n' +\
+          '**Wisdom: **'+str(charWis)+'\n' +\
+          '**Charisma: **'+str(charCha)+'\n\n'+\
+          '**Features and Traits: **'+str(charFeatures)+'\n'+\
+          '**Languages: **'+str(charLanguages)
 
     return rtn
 
