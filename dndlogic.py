@@ -574,19 +574,45 @@ def rollCharacter():
                              }
 	} #A dictionary of races, with their racial bonuses, traits, actions, and languages.
     classes = {
-        'Barbarian':{'primary': 'str', 'secondary': 'con'},
-        'Bard':{'primary': 'cha', 'secondary': 'dex'},
-        'Cleric':{'primary':'wis','secondary':'str'},
-        'Druid':{'primary':'wis', 'secondary':'con'},
-        'Fighter':{'primary':'str','secondary': 'con'},
-        'Monk':{'primary':'dex','secondary':'wis'},
-        'Paladin':{'primary':'str','secondary':'cha'},
-        'Ranger':{'primary':'dex','secondary':'wis'},
-        'Rogue':{'primary':'dex','secondary':'wis'},
-        'Sorcerer':{'primary':'cha','secondary':'con'},
-        'Warlock':{'primary':'cha','secondary':'con'},
-        'Wizard':{'primary':'int','secondary':'con'},
-        'Blood Hunter':{'primary':'str','secondary':'dex'},
+        'Barbarian':{'primary': 'str', 'secondary': 'con',
+                     'traits':{'Rage', 'Unarmored Defense'}
+                     },
+        'Bard':{'primary': 'cha', 'secondary': 'dex',
+                'traits':{'Spellcasting', 'Bardic Inspiration' 'Cantrips (2)', 'Spells (4) (1st Level)'}
+                },
+        'Cleric':{'primary':'wis','secondary':'str',
+                  'traits':{'Spellcasting', 'Divine Domain', 'Cantrips (3)', 'Spells (2) (1st Level'}
+                  },
+        'Druid':{'primary':'wis', 'secondary':'con',
+                 'traits':{'Druidic', 'Spellcasting', 'Cantrips (2)', 'Spells (2) (1st Level)'}
+                 },
+        'Fighter':{'primary':'str','secondary': 'con',
+                   'traits':{'Fighting Style', 'Second Wind'}
+                   },
+        'Monk':{'primary':'dex','secondary':'wis',
+                'traits':{'Unarmored Defense', 'Martial Arts'}
+                },
+        'Paladin':{'primary':'str','secondary':'cha',
+                   'traits':{'Divine Sense', 'Lay on Hands'}
+                   },
+        'Ranger':{'primary':'dex','secondary':'wis',
+                  'traits':{'Favored Enemy', 'Natural Explorer'}
+                  },
+        'Rogue':{'primary':'dex','secondary':'wis',
+                 'traits':{'Expertise', 'Sneak Attack', "Thieve's Cant"}
+                 },
+        'Sorcerer':{'primary':'cha','secondary':'con',
+                    'traits':{'Spellcasting', 'Sorcerous Origin', 'Cantrips (4)', 'Spells (2) (1st Level)'}
+                    },
+        'Warlock':{'primary':'cha','secondary':'con',
+                   'traits':{'Otherworldly Patron', 'Pact Magic', 'Cantrips (2)', 'Spells (2) (1st Level)'}
+                   },
+        'Wizard':{'primary':'int','secondary':'con',
+                  'traits':{'Spellcasting', 'Arcane Recovery', 'Cantrips (3)'}
+                  },
+        'Blood Hunter':{'primary':'str','secondary':'dex',
+                        'traits':{"Hunter's Bane", 'Crimson Rite'}
+                        },
     }#A dictionary of classes, with their "preferred" stats.
 
     stats = ['str', 'dex', 'con', 'int', 'wis', 'cha']  #A list of each stat possible
@@ -708,6 +734,9 @@ def rollCharacter():
         charInt += races[charRace]['subraces'][charSub]['modifiers']['int']
         charWis += races[charRace]['subraces'][charSub]['modifiers']['wis']
         charCha += races[charRace]['subraces'][charSub]['modifiers']['cha']
+
+    for x in classes[charClass]['traits']:
+        charFeatures.append(x)
 #######################################################################
 #Subrace modifiers end here. Ability score bonus modifiers begin here.#
 #######################################################################
