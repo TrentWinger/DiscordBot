@@ -23,7 +23,7 @@ def rollStats():
 #
 def rollCharacter():
     raceList = ['Aarakocra', 'Aasimar', 'Bugbear', 'Centaur', 'Changeling',
-                'Dragonborn', 'Dwarf', 'Elf', 'Feral Tiefling', 'Firbolg', 'Genasi',
+                'Dragonborn', 'Dwarf', 'Elf', 'Firbolg', 'Genasi',
                 'Gith', 'Gnome', 'Goblin', 'Goliath', 'Half-Elf', 'Halfling', 'Half-Orc',
                 'Hobgoblin', 'Human', 'Kalashtar', 'Kenku', 'Kobold', 'Lizardfolk', 'Loxodon',
                 'Minotaur', 'Orc', 'Shifter', 'Simic Hybrid', 'Tabaxi', 'Tiefling', 'Tortle',
@@ -32,6 +32,7 @@ def rollCharacter():
     classList = ['Barbarian', 'Bard', 'Cleric', 'Druid', 'Fighter', 'Monk', 'Paladin',
                  'Ranger', 'Rogue', 'Sorcerer', 'Warlock', 'Wizard', 'Blood Hunter'] #This contains a list of class names as strings
 
+    feralTraits = ["Devil's Tongue", "Hellfire", "Winged"]
     charAlignment = str #Create a string to append later
 
     moralList = ['Lawful', 'Neutral', 'Chaotic']
@@ -54,130 +55,338 @@ def rollCharacter():
     charRace = random.choice(raceList)
     charClass = random.choice(classList)
 
-    #############################################################
-    # From here until the next block is code for race modifiers.#
-    #############################################################
+#############################################################
+# From here until the next block is code for race modifiers.#
+#############################################################
 
     races = {
     	'Aarakocra':{'str': 0,'dex': 2,'con': 0, 'int': 0, 'wis': 1, 'cha': 0,
                      'traits':{'Flight, Talons'},
                      'actions': {},
-                     'languages': {'Common', 'Aarakocra'}
+                     'languages': {'Common', 'Aarakocra', 'Auran'},
+                     'subraces':{}
                     },
         'Aasimar':{'str': 0, 'dex': 0, 'con': 0, 'int': 0, 'wis': 0, 'cha': 2,
                    'traits':{'Darkvision, Celestial Resistance, Light Bearer'},
                    'actions':{'Healing Hands'},
-                   'languages': {'Common', 'Celestial'}
+                   'languages': {'Common', 'Celestial'},
+                   'subraces':{
+                       'Protector':{
+                           'modifiers':{'str': 0, 'dex': 0, 'con': 0, 'int': 0, 'wis': 1, 'cha':0},
+                           'features':['Radiant Soul'],
+                           'languages':[]
+                       },
+                        'Scourge':{
+                            'modifiers': {'str':0, 'dex': 0, 'con':1, 'int': 0, 'wis': 0, 'cha':0},
+                            'features':['Radiant Consumption'],
+                            'languages':[]
+                        },
+                       'Fallen':{
+                           'modifiers':{'str':1, 'dex':0,'con':1, 'int':0, 'wis':0,'cha':0},
+                           'features':['Necrotic Shroud'],
+                           'languages':[]
+                       }
+                   }
                    },
         'Bugbear':{'str': 2, 'dex': 1, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0,
                    'traits':{'Darkvision', 'Long-Limbed', 'Powerful Build', 'Sneaky'},
                    'actions':{'Surprise Attack'},
-                   'languages':{'Common', 'Goblin'}
+                   'languages':{'Common', 'Goblin'},
+                   'subraces':{}
                    },
         'Centaur':{'str': 2, 'dex': 0, 'con': 0, 'wis': 1, 'cha': 0,
                    'traits':{'Hooves','Equine Build', 'Survivor', 'Hybrid Nature'},
                    'actions':{'Charge'},
-                   'languages':{'Common', 'Sylvan'}
+                   'languages':{'Common', 'Sylvan'},
+                   'subraces':{}
                    },
         'Changeling':{'str': 0, 'dex': 0, 'con': 0, 'int': 0, 'wis': 0, 'cha': 2,
                       'traits':{'Changeling Instincts', 'Divergent Persona'},
                       'actions':{'Change Appearance', 'Unsettling Visage'},
-                      'languages':{'Common'} #Choice of more
+                      'languages':{'Common', 'Choice', 'Choice'},
+                      'subraces':{}
                       },
         'Dragonborn':{'str': 2, 'dex': 0, 'con': 0, 'int': 0, 'wis': 0, 'cha': 1,
                       'traits':{'Damage Resistance'},
                       'actions':{'Breath Weapon'}, #Based on ancestry
-                      'languages':{'Common', 'Draconic'}
+                      'languages':{'Common', 'Draconic'},
+                      'subraces':{
+                          'Black (Acid)':{
+                              'modifiers':{'str': 0, 'dex': 0, 'con': 0, 'int':0, 'wis': 0, 'cha': 0},
+                              'features':[],
+                              'languages':[]
+                          },
+                          'Blue (Lightning)':{
+                              'modifiers':{'str': 0, 'dex': 0, 'con': 0, 'int':0,  'wis': 0, 'cha': 0},
+                              'features':[],
+                              'languages':[]
+
+                          },
+                          'Brass (Fire)':{
+                              'modifiers':{'str': 0, 'dex': 0, 'con': 0, 'int':0,  'wis': 0, 'cha': 0},
+                              'features':[],
+                              'languages':[]
+                          },
+                          'Bronze (Lightning)':{
+                              'modifiers':{'str': 0, 'dex': 0, 'con': 0, 'int':0,  'wis': 0, 'cha': 0},
+                              'features':[],
+                              'languages':[]
+                          },
+                          'Copper (Acid)':{
+                              'modifiers':{'str': 0, 'dex': 0, 'con': 0, 'int':0,  'wis': 0, 'cha': 0},
+                              'features':[],
+                              'languages':[]
+                          },
+                          'Gold (Fire)':{
+                              'modifiers':{'str': 0, 'dex': 0, 'con': 0, 'int':0,  'wis': 0, 'cha': 0},
+                              'features':[],
+                              'languages':[]
+                          },
+                          'Green (Poison)':{
+                              'modifiers':{'str': 0, 'dex': 0, 'con': 0, 'int':0,  'wis': 0, 'cha': 0},
+                              'features':[],
+                              'languages':[]
+                          },
+                          'Red (Fire)':{
+                              'modifiers':{'str': 0, 'dex': 0, 'con': 0, 'int':0,  'wis': 0, 'cha': 0},
+                              'features':[],
+                              'languages:':[]
+                          },
+                          'Silver (Cold)':{
+                              'modifiers':{'str': 0, 'dex': 0, 'con': 0, 'int':0,  'wis': 0, 'cha': 0},
+                              'features':[],
+                              'languages':[]
+                          },
+                          'White (Cold)':{
+                              'modifiers':{'str': 0, 'dex': 0, 'con': 0, 'int':0,  'wis': 0, 'cha': 0},
+                              'features':[],
+                              'languages':[]
+                          }
+                      }
                       },
-        'Dwarf':{'str': 0, 'dex': 0, 'con': 2, 'wis': 0, 'cha': 0,
+        'Dwarf':{'str': 0, 'dex': 0, 'con': 2, 'int':0,  'wis': 0, 'cha': 0,
                  'traits':{'Darkvision', 'Dwarven Resilience', 'Dwarven Combat Training', 'Tool Proficiency', 'Stonecunning'},
                  'actions':{},
-                 'languages':{'Common', 'Dwarvish'}
+                 'languages':{'Common', 'Dwarvish'},
+                 'subraces':{
+                     'Duergar':{
+                        'modifiers':{'str': 1, 'dex': 0, 'con': 0, 'int':0,  'wis': 0, 'cha': 0},
+                         'features':['Superior Darkvision', 'Duergar Resilience', 'Duergar Magic', 'Sunlight Sensitivity'],
+                         'languages':['Undercommon'],
+                     },
+                     'Hill':{
+                         'modifiers':{'str': 0, 'dex': 0, 'con': 0, 'int':0,  'wis': 1, 'cha': 0},
+                         'features':['Dwarven Toughness'],
+                         'languages':[]
+                     },
+                     'Mountain':{
+                         'modifiers':{'str': 2, 'dex': 0, 'con': 0, 'int':0,  'wis': 0, 'cha': 0},
+                         'features':['Dwarven Armor Training'],
+                         'languages':[]
+                     }
+                 }
                  },
         'Elf':{'str': 0, 'dex': 2, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0,
                'traits':{'Darkvision', 'Keen Senses', 'Fey Ancestry', 'Trance',},
                'actions':{},
-               'languages':{'Common', 'Elvish'}
+               'languages':{'Common', 'Elvish'},
+               'subraces':{ #Hold on to your hats ladies and gentlemen, because there is no shortage of subraces.
+                   'Avariel':{
+                       'modifiers':{'str': 0, 'dex': 0, 'con': 0, 'int': 0, 'wis': 0, 'cha': 1 },
+                       'features':['Flight'],
+                       'languages':['Auran']
+                   },
+                   'Dark':{
+                       'modifiers':{'str': 0, 'dex': 0, 'con': 0, 'int': 0, 'wis': 0, 'cha': 1 },
+                       'features':['Superior Darkvision', 'Drow Magic', 'Sunlight Sensitivity', 'Drow Weapon Training'],
+                       'languages':[]
+                   },
+                   'Eladrin':{
+                       'modifiers':{'str': 0, 'dex': 0, 'con': 0, 'int': 0, 'wis': 0, 'cha': 1},
+                       'features':['Seasons', 'Fey Step'],
+                       'languages':[]
+                   },
+                   'Grugach':{
+                       'modifiers':{'str': 1, 'dex': 0, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0 },
+                       'features':['Grugach Weapon Training', 'Cantrip (Druid)'],
+                       'languages':['Sylvan']
+                   },
+                   'High':{
+                       'modifiers': {'str': 0, 'dex': 0, 'con': 0, 'int': 1, 'wis': 0, 'cha': 0},
+                       'features':['Elf Weapon Training', 'Cantrip (Wizard)'],
+                       'languages':['Choice']
+                   },
+                   'Sea':{
+                       'modifiers': {'str': 0, 'dex': 0, 'con': 1, 'int': 0, 'wis': 0, 'cha': 0},
+                       'features':['Sea Elf Weapon Training', 'Child of the Sea', 'Friend of the Sea'],
+                       'languages':['Aquan']
+                   },
+                   'Shadar-kai':{
+                       'modifiers': {'str': 0, 'dex': 0, 'con': 1, 'int': 0, 'wis': 0, 'cha': 0},
+                       'features':['Necrotic Resistance', 'Blessing of the Raven Queen'],
+                       'languages':[],
+                   },
+                   'Wood':{
+                       'modifiers': {'str': 0, 'dex': 0, 'con': 0, 'int': 0, 'wis': 1, 'cha': 0},
+                       'features':['Elf Weapon Training', 'Fleet of Foot', 'Mask of the Wild'],
+                       'languages':[],
+                   },
+               }
                },
-        'Feral Tiefling':{'str': 0, 'dex': 2, 'con': 0, 'int': 1, 'wis': 0, 'cha': 0,
-                          'traits':{'Darkvision', 'Hellish Resistance', 'Infernal Legacy'},
-                          'actions':{},
-                          'languages':{'Common', 'Infernal'}
-                          },
         'Firbolg':{'str': 1, 'dex': 0, 'con': 0, 'int': 0, 'wis': 2, 'cha': 0,
                    'traits':{'Firbolg Magic', 'Powerful Build', 'Speech of Beast and Leaf'},
                    'actions':{'Hidden Step'},
-                   'languages':{'Common', 'Elvish', 'Giant'}
+                   'languages':{'Common', 'Elvish', 'Giant'},
+                   'subraces':{}
                    },
         'Genasi':{'str': 0, 'dex': 0, 'con': 2, 'int': 0, 'wis': 0, 'cha': 0,
                   'traits':{}, #Varies based on type.
                   'actions':{},
-                  'languages':{'Common', 'Primordial'}
+                  'languages':{'Common', 'Primordial'},
+                  'subraces':{
+                      'Air':{
+                          'modifiers': {'str': 0, 'dex': 1, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0},
+                          'features':['Unending Breath', 'Mingle with the Wind'],
+                          'languages':[],
+                      },
+                      'Earth':{
+                          'modifiers': {'str': 1, 'dex': 0, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0},
+                          'features':['Earth Walk', 'Merge with Stone'],
+                          'languages':[]
+                      },
+                      'Fire':{
+                          'modifiers':{'str': 0, 'dex': 0, 'con': 0, 'int': 1, 'wis': 0, 'cha': 0 },
+                          'features':['Darkvision', 'Fire Resistance', 'Reach to the Blaze'],
+                          'languages':[]
+                      },
+                      'Water':{
+                          'modifiers': {'str': 0, 'dex': 0, 'con': 0, 'int': 0, 'wis': 1, 'cha': 0},
+                          'features':['Acid Resistance', 'Amphibious', 'Swim', 'Call to the Wave'],
+                          'languages':[]
+                      }
+
+                  }
                   },
         'Gith':{'str': 0, 'dex': 0, 'con': 0, 'int': 1, 'wis': 0, 'cha': 0,
                 'traits':{},
                 'actions':{}, #Varies based on type
-                'languages':{'Common', 'Gith'}
+                'languages':{'Common', 'Gith'},
+                'subraces':{
+                    'Githyanki':{
+                        'modifiers': {'str': 2, 'dex': 0, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0},
+                        'features':['Decadent Mastery', 'Martial Prodigy', 'Githyanki Psionics'],
+                        'languages':[]
+                    },
+                    'Githzerai':{
+                        'modifiers': {'str': 0, 'dex': 0, 'con': 0, 'int': 0, 'wis': 2, 'cha': 0},
+                        'features':['Decadent Mastery', 'Martial Prodigy', 'Githyanki Psionics'],
+                        'languages':[],
+                    }
+                }
                 },
         'Gnome':{'str': 0, 'dex': 0, 'con': 0, 'int': 2, 'wis': 0, 'cha': 0,
                  'traits':{'Darkvision', 'Gnome Cunning'},
                  'actions':{}, #Varies based on type
-                 'languages':{'Common', 'Gnomish'}
+                 'languages':{'Common', 'Gnomish'},
+                 'subraces':{
+                     'Deep':{
+                         'modifiers': {'str': 0, 'dex': 1, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0},
+                         'features':['Superior Darkvision', 'Stone Camouflage', 'Svirfneblin Magic'],
+                         'languages':['Undercommon']
+                     },
+                     'Forest':{
+                         'modifiers': {'str': 0, 'dex': 1, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0},
+                         'features':['Natural Illusionist', 'Speak with Small Beasts'],
+                         'languages':[]
+                     },
+                     'Rock':{
+                         'modifiers': {'str': 0, 'dex': 0, 'con': 1, 'int': 0, 'wis': 0, 'cha': 0},
+                         'features':["Artificer's Lore", "Tinker"],
+                         'languages':[]
+                     }
+                 }
                  },
         'Goblin':{'str': 0, 'dex': 2, 'con': 1, 'int': 0, 'wis': 0, 'cha': 0,
                   'traits':{'Darkvision'},
                   'actions':{'Fury of the Small', 'Nimble Escape'},
-                  'languages':{'Common', 'Goblin'}
+                  'languages':{'Common', 'Goblin'},
+                  'subraces':{}
                   },
         'Goliath':{'str': 2, 'dex': 0, 'con': 1, 'int': 0, 'wis': 0, 'cha': 0,
                    'traits':{'Natural Athlete', 'Powerful Build', 'Mountain Born'},
                    'actions':{"Stone's Endurance"},
-                   'languages':{'Common', 'Giant'}
+                   'languages':{'Common', 'Giant'},
+                   'subraces':{}
                    },
         'Half-Elf':{'str': 0, 'dex': 0, 'con': 0, 'int': 0, 'wis': 0, 'cha': 2,
                     'traits':{'Darkvision', 'Fey Ancestry', 'Skill Versatility'}, #Additions based on type
                     'actions':{},
-                    'languages':{'Common', 'Elvish', 'Choice'}
+                    'languages':{'Common', 'Elvish', 'Choice'},
+                    'subraces':{}
                     },
         'Half-Orc':{'str': 2, 'dex': 0, 'con': 1, 'int': 0, 'wis': 0, 'cha': 0,
                     'traits':{'Darkvision', 'Menacing'},
                     'actions':{'Relentless Endurance', 'Savage Attacks'},
-                    'languages':{'Common', 'Orc'}
+                    'languages':{'Common', 'Orc'},
+                    'subraces':{}
                     },
         'Halfling':{'str': 0, 'dex': 2, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0,
                     'traits':{'Lucky', 'Brave', 'Halfling Nimbleness'},
-                    'actions':{''},
-                    'languages':{'Common', 'Halfling'}
+                    'actions':{},
+                    'languages':{'Common', 'Halfling'},
+                    'subraces':{
+                        'Ghostwise':{
+                            'modifiers': {'str': 0, 'dex': 0, 'con': 0, 'int': 0, 'wis': 1, 'cha': 0},
+                            'features':{'Silent Speech'},
+                            'languages':{}
+                        },
+                        'Lightfoot':{
+                            'modifiers': {'str': 0, 'dex': 0, 'con': 0, 'int': 0, 'wis': 0, 'cha': 1},
+                            'features':['Naturally Stealthy'],
+                            'languages':[]
+                        },
+                        'Stout':{
+                            'modifiers': {'str': 0, 'dex': 0, 'con': 1, 'int': 0, 'wis': 0, 'cha': 0},
+                            'features':['Stout Resilience'],
+                            'languages':[]
+                        }
+                    }
                     },
         'Hobgoblin':{'str': 0, 'dex': 0, 'con': 2, 'int': 1, 'wis': 0, 'cha': 0,
                      'traits':{'Darkvision', 'Martial Training'},
                      'actions':{'Saving Faces'},
                      'languages':{'Common', 'Goblin'},
+                     'subraces':{}
                      },
         'Human':{'str': 1, 'dex': 1, 'con': 1, 'int': 1, 'wis': 1, 'cha': 1,
                  'traits':{''},
-                 'actions':{''}, #Human has subraces.
-                 'languages':{'Common', 'Choice'}
+                 'actions':{''},
+                 'languages':{'Common', 'Choice'},
+                 'subraces':{}
                  },
         'Kalashtar':{'str': 0, 'dex': 0, 'con': 0, 'int': 0, 'wis': 1, 'cha': 1,
                      'traits':{'Dual Mind', 'Mental Discipline', 'Psychic Glamour', 'Severed from Dreams'},
                      'actions':{'Mind Link'},
-                     'languages':{'Common', 'Quori', 'Choice'}
+                     'languages':{'Common', 'Quori', 'Choice'},
+                     'subraces':{}
                      },
         'Kenku':{'str': 0, 'dex': 2, 'con': 0, 'int': 0, 'wis': 1, 'cha': 0,
                  'traits':{'Kenku Training'},
                  'actions':{'Expert Forgery', 'Mimicry'},
-                 'languages':{'Common', 'Auran'}
+                 'languages':{'Common', 'Auran'},
+                 'subraces':{}
                  },
         'Kobold':{'str': -2, 'dex': 2, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0,
                   'traits':{'Darkvision', 'Pack Tactics', 'Sunlight Sensitivity'},
                   'actions':{'Grovel, Cower, and Beg'},
-                  'languages':{'Common', 'Draconic'}
+                  'languages':{'Common', 'Draconic'},
+                  'subraces':{}
                   },
         'Lizardfolk':{'str': 0, 'dex': 0, 'con': 2, 'int': 0, 'wis': 1, 'cha': 0,
                       'traits':{"Hold Breath", "Hunter's Lore", "Natural Armor",},
                       'actions':{'Bite', "Cunning Artisan", "Hungry Jaws"},
-                      'languages':{'Common', 'Draconic'}
+                      'languages':{'Common', 'Draconic'},
+                      'subraces':{} #Maybe fill this with different lizard species? More or less for flair only.
                       },
         'Loxodon':{'str': 0, 'dex': 0, 'con': 2, 'int': 0, 'wis': 1, 'cha': 0,
                    'traits':{'Powerful Build', 'Loxodon Bravery', 'Natural Armor', "Mason's Proficiency"
@@ -185,75 +394,192 @@ def rollCharacter():
                             },
                    'actions':{},
                    'languages':{'Common'},
+                   'subraces':{}
                    },
         'Minotaur':{'str': 2, 'dex': 0, 'con': 1, 'int': 0, 'wis': 0, 'cha': 0,
                     'traits':{'Menacing', 'Hybrid Nature'},
                     'actions':{'Horns', 'Goring Rush', 'Hammering Horns'},
-                    'languages':{'Common', 'Minotaur'}
+                    'languages':{'Common', 'Minotaur'},
+                    'subraces':{}
                     },
         'Orc':{'str': 2, 'dex': 0, 'con': 1, 'int': -1, 'wis': 0, 'cha': 0,
                'traits':{'Darkvision', 'Menacing', 'Powerful Build'},
                'actions':{'Aggressive'},
-               'languages':{'Common', 'Orc'}
+               'languages':{'Common', 'Orc'},
+               'subraces':{}
                },
         'Shifter':{'str': 0, 'dex': 1, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0,
                    'traits':{'Darkvision', 'Keen Senses'},
                    'actions':{'Shifting'},
-                   'languages':{'Common'}
+                   'languages':{'Common'},
+                   'subraces':{
+                       'Beasthide':{
+                           'modifiers': {'str': 0, 'dex': 0, 'con': 2, 'int': 0, 'wis': 0, 'cha': 0},
+                           'features':['Tough' 'Shifting Feature (Beasthide)'],
+                           'languages':[]
+                       },
+                       'Longtooth':{
+                           'modifiers': {'str': 2, 'dex': 0, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0},
+                           'features':['Fierce', 'Shifting Feature (Longtooth)'],
+                           'languages':[],
+                       },
+                       'Swiftstride':{
+                           'modifiers': {'str': 0, 'dex': 1, 'con': 0, 'int': 0, 'wis': 0, 'cha': 1},
+                           'features':['Graceful', 'Swift Stride', 'Shifting Feature (Swiftstride)'],
+                           'languages':[]
+                       },
+                       'Wildhunt':{
+                           'modifiers': {'str': 0, 'dex': 0, 'con': 0, 'int': 0, 'wis': 2, 'cha': 0},
+                           'features':['Natural Tracker', 'Mark the Scent', 'Shifting Feature (Wildhunt)'],
+                           'languages':[]
+                       }
+                   }
                    },
         'Simic Hybrid':{'str': 0, 'dex': 0, 'con': 2, 'int': 0, 'wis': 0, 'cha': 0,
                         'traits':{'Darkvision'},
                         'actions':{},
-                        'languages':{'Common', 'Elvish'}
+                        'languages':{'Common', 'Elvish'},
+                        'subraces':{}
                         },
         'Tabaxi':{'str': 0, 'dex': 2, 'con': 0, 'int': 0, 'wis': 0, 'cha': 1,
-                  'traits':{'Darkvision', "Cat's Talent"},
+                  'traits':{'Darkvision', "Cat's Talent", "Cat's Claws"},
                   'actions':{'Feline Agility'},
-                  'languages':{'Common', 'Choice'}
+                  'languages':{'Common', 'Choice'},
+                  'subraces':{}
                   },
         'Tiefling':{'str': 0, 'dex': 2, 'con': 0, 'int': 1, 'wis': 0, 'cha': 0,
                     'traits':{'Darkvision', 'Hellish Resistance', 'Infernal Legacy'},
                     'actions':{},
-                    'languages':{'Common', 'Infernal'}
+                    'languages':{'Common', 'Infernal'},
+                    'subraces':{
+                        'Abyssal':{
+                            'modifiers':{'str': 0, 'dex': -2, 'con': 1, 'int': -1, 'wis': 0, 'cha': 2},
+                            'features':['Abyssal Fortitude', 'Abyssal Arcana'],
+                            'languages':['Abyssal']
+                        },
+                        'Baalzebul':{
+                            'modifiers': {'str': 0, 'dex': -2, 'con': 0, 'int': 0, 'wis': 0, 'cha': 2},
+                            'features':['Legacy of Maladomini'],
+                            'languages':[]
+                        },
+                        'Dispater':{
+                            'modifiers': {'str': 0, 'dex': -1, 'con': 0, 'int': -1, 'wis': 0, 'cha': 2},
+                            'features':['Legacy of Dis'],
+                            'languages':[]
+                        },
+                        'Fierna':{
+                            'modifiers': {'str': 0, 'dex': -2, 'con': 0, 'int': -1, 'wis': 1, 'cha': 2},
+                            'features':['Legacy of Phlegethos'],
+                            'languages':[]
+                        },
+                        'Glasaya':{
+                            'modifiers': {'str': 0, 'dex': -1, 'con': 0, 'int': -1, 'wis': 0, 'cha': 2},
+                            'features':['Legacy of Malbolge'],
+                            'languages':[]
+                        },
+                        'Levistus':{
+                            'modifiers': {'str': 0, 'dex': -2, 'con': 1, 'int': -1, 'wis': 0, 'cha': 2},
+                            'features':['Legacy of Stygia'],
+                            'languages':[]
+                        },
+                        'Mammon':{
+                            'modifiers': {'str': 0, 'dex': -2, 'con': 0, 'int': 0, 'wis': 0, 'cha': 2},
+                            'features':['Legacy of Minauros'],
+                            'languages':[]
+                        },
+                        'Mephistopheles':{
+                            'modifiers': {'str': 0, 'dex': -2, 'con': 0, 'int': 0, 'wis': 0, 'cha': 2},
+                            'features':['Legacy of Cania'],
+                            'languages':[]
+                        },
+                        'Feral':{
+                            'modifiers':{'str': 0, 'dex': 0, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0},
+                            'features':[random.choice(feralTraits)],
+                            'languages':[]
+                        },
+                        'Zariel':{
+                            'modifiers': {'str': 1, 'dex': -2, 'con': 0, 'int': -1, 'wis': 0, 'cha': 2},
+                            'features': ['Legacy of Avernus'],
+                            'languages':[]
+                        }
+                    }
                     },
         'Tortle':{'str': 2, 'dex': 0, 'con': 0, 'int': 0, 'wis': 1, 'cha': 0,
                   'traits':{'Natural Armor', 'Survival Instinct'},
                   'actions':{'Hold Breath', 'Shell Defense', 'Claws'},
-                  'languages':{'Common', 'Aquan'}
+                  'languages':{'Common', 'Aquan'},
+                  'subraces':{
+                      'Razorback':{
+                          'modifiers': {'str': 1, 'dex': 0, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0},
+                          'features':['Razorback','Razor Fist'],
+                          'languages':[]
+                      },
+                      'Softshell':{
+                          'modifiers': {'str': 0, 'dex': 0, 'con': 0, 'int': 0, 'wis': 1, 'cha': 0},
+                          'features':['Softshell', 'Tortle Agility'],
+                          'languages':[]
+                      },
+                      'Desert':{
+                          'modifiers': {'str': 0, 'dex': 0, 'con': 1, 'int': 0, 'wis': 0, 'cha': 0},
+                          'features':['Nomad', 'Shell Master'],
+                          'languages':[]
+                      }
+                  }
                   },
         'Triton':{'str': 1, 'dex': 0, 'con': 1, 'int': 0, 'wis': 0, 'cha': 1,
                   'traits':{'Amphibious', 'Emissary of the Sea', 'Guardian of the Depths'},
                   'actions':{'Control Air and Water'},
-                  'languages':{'Common', 'Primordial'}
+                  'languages':{'Common', 'Primordial'},
+                  'subraces':{}
                   },
         'Vedalken':{'str': 0, 'dex': 0, 'con': 0, 'int': 2, 'wis': 1, 'cha': 0,
                     'traits':{'Veldaken Dispassion', 'Tireless Precision'},
                     'actions':{},
-                    'languages':{'Common'}
+                    'languages':{'Common'},
+                    'subraces':{}
                     },
         'Viashino':{'str': 1, 'dex': 2, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0,
                     'traits':{'Wiry Frame'},
                     'actions':{'Bite', 'Lashing Tail'},
-                    'languages':{'Common', 'Draconic'}
+                    'languages':{'Common', 'Draconic'},
+                    'subraces':{}
                     },
         'Warforged':{'str': 0, 'dex': 0, 'con': 1, 'int': 0, 'wis': 0, 'cha': 0,
                      'traits':{'Warforged Resilience', "Sentry's Rest", 'Integrated Protection'},
                      'actions':{},
-                     'languages':{'Common'}
+                     'languages':{'Common'},
+                     'subraces':{
+                         'Envoy':{
+                             'modifiers': {'str': 0, 'dex': 2, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0},
+                             'features':['Specialized Design', 'Integrated Tool'],
+                             'languages':[]
+                         },
+                         'Juggernaut':{
+                             'modifiers': {'str': 2, 'dex': 0, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0},
+                             'features': ['Iron Fists', 'Powerful Build'],
+                             'languages':[]
+                         },
+                         'Skirmisher':{
+                             'modifiers': {'str': 0, 'dex': 2, 'con': 0, 'int': 0, 'wis': 0, 'cha': 0},
+                             'features':['Swift', 'Light Step'],
+                             'languages':[]
+                         }
+                     }
                      },
         'Yuan-ti Pureblood':{'str': 0, 'dex': 0, 'con': 0, 'int': 1, 'wis': 0, 'cha': 2,
                              'traits':{'Darkvision', 'Innate Spellcasting', 'Magic Resistance', 'Poison Immunity'},
                              'actions':{},
-                             'languages':{'Common', 'Abyssal', 'Draconic'}
+                             'languages':{'Common', 'Abyssal', 'Draconic'},
+                             'subraces':{}
                              }
 	} #A dictionary of races, with their racial bonuses, traits, actions, and languages.
-    classes ={
+    classes = {
         'Barbarian':{'primary': 'str', 'secondary': 'con'},
         'Bard':{'primary': 'cha', 'secondary': 'dex'},
         'Cleric':{'primary':'wis','secondary':'str'},
         'Druid':{'primary':'wis', 'secondary':'con'},
         'Fighter':{'primary':'str','secondary': 'con'},
-        'Monk':{'primary':'dex','secondary':'dex'},
+        'Monk':{'primary':'dex','secondary':'wis'},
         'Paladin':{'primary':'str','secondary':'cha'},
         'Ranger':{'primary':'dex','secondary':'wis'},
         'Rogue':{'primary':'dex','secondary':'wis'},
@@ -332,44 +658,114 @@ def rollCharacter():
         if choice == 5:
             charDex += 1
 
-    ###########################
-    # Race modifiers end here.#
-    ###########################
+###########################
+# Race modifiers end here.#
+###########################
 
 	#Str, Dex, Con, Int, Wis, Cha
 
+    subRaces = races[charRace]['subraces']
 
-    charFeatures = ''
+    if len(subRaces) != 0:
+        charSub = random.choice(list(subRaces))
+    else:
+        charSub = None
+
+#################################################################
+#These add the base features from the race, subrace not included#
+#################################################################
+
+    charFeatures = []
     for x in races[charRace]['traits']:
-        charFeatures += x
-        charFeatures +=', '
+        charFeatures.append(x)
 
     for x in races[charRace]['actions']:
-        charFeatures += x
-        charFeatures +=', '
+        charFeatures.append(x)
 
-    if charFeatures.endswith(', '):
-        charFeatures = charFeatures[:-2]
-
-    charLanguages = ''
+    charLanguages = []
 
     for x in races[charRace]['languages']:
-        charLanguages += x
-        charLanguages +=', '
-    if charLanguages.endswith(', '):
-        charLanguages = charLanguages[:-2]
+        charLanguages.append(x)
 
+    if charSub != None:
+        rtnSub = '**Subrace: **'+str(charSub)+'\n'
+    else:
+        rtnSub = ''
+
+################################################################
+#From here down, the subrace modifiers are added, if applicable#
+################################################################
+    print(charSub)
+    if charSub != None:
+        for x in races[charRace]['subraces'][charSub]['features']:
+            charFeatures.append(x)
+        for x in races[charRace]['subraces'][charSub]['languages']:
+            charLanguages.append(x)
+
+        charStr += races[charRace]['subraces'][charSub]['modifiers']['str']
+        charDex += races[charRace]['subraces'][charSub]['modifiers']['dex']
+        charCon += races[charRace]['subraces'][charSub]['modifiers']['con']
+        charInt += races[charRace]['subraces'][charSub]['modifiers']['int']
+        charWis += races[charRace]['subraces'][charSub]['modifiers']['wis']
+        charCha += races[charRace]['subraces'][charSub]['modifiers']['cha']
+#######################################################################
+#Subrace modifiers end here. Ability score bonus modifiers begin here.#
+#######################################################################
+
+    strBonus = (charStr-10)//2
+    if strBonus >= 0:
+        strBonus = '+'+str(strBonus)
+    dexBonus = (charDex-10)//2
+    if dexBonus >= 0:
+        dexBonus = '+'+str(dexBonus)
+    conBonus = (charCon-10)//2
+    if conBonus >= 0:
+        conBonus = '+'+str(conBonus)
+    intBonus = (charInt-10)//2
+    if intBonus >= 0:
+        intBonus = '+'+str(intBonus)
+    wisBonus = (charWis-10)//2
+    if wisBonus >= 0:
+        wisBonus = '+'+str(wisBonus)
+    chaBonus = (charCha-10)//2
+    if chaBonus >= 0:
+        chaBonus = '+'+str(chaBonus)
+
+#############################
+#Subrace modifiers end here.#
+#############################
+
+    charFeatures.sort()
+    charLanguages.sort()
+
+    charFeatStr = ''
+    charLangStr = ''
+
+    for x in charFeatures:
+        charFeatStr += x
+        charFeatStr += ', '
+    if charFeatStr.endswith(', '):
+        charFeatStr = charFeatStr[:-2]
+
+    for y in charLanguages:
+        charLangStr += y
+        charLangStr += ', '
+    if charLangStr.endswith(', '):
+        charLangStr = charLangStr[:-2]
+
+
+#The asterisks are simply for Discord formatting.
 
     rtn = '**Race: **'+str(charRace)+'\n' +\
+          rtnSub+\
           '**Class: **'+str(charClass)+'\n' + \
           '**Alignment: **' + charAlignment+'\n\n'\
-          '**Strength: **'+str(charStr)+'\n' +\
-          '**Dexterity: **'+str(charDex)+'\n' +\
-          '**Constitution: **'+str(charCon)+'\n' +\
-          '**Intelligence: **'+str(charInt)+'\n' +\
-          '**Wisdom: **'+str(charWis)+'\n' +\
-          '**Charisma: **'+str(charCha)+'\n\n'+\
-          '**Features and Traits: **'+str(charFeatures)+'\n'+\
-          '**Languages: **'+str(charLanguages)
-
+          '**Strength: **'+str(charStr)+'   ('+str(strBonus)+')''\n' +\
+          '**Dexterity: **'+str(charDex)+'   ('+str(dexBonus)+')''\n' +\
+          '**Constitution: **'+str(charCon)+'   ('+str(conBonus)+')''\n' +\
+          '**Intelligence: **'+str(charInt)+'   ('+str(intBonus)+')''\n' +\
+          '**Wisdom: **'+str(charWis)+'   ('+str(wisBonus)+')''\n' +\
+          '**Charisma: **'+str(charCha)+'   ('+str(chaBonus)+')''\n' +\
+          '**Features and Traits: **'+str(charFeatStr)+'\n'+\
+          '**Languages: **'+str(charLangStr)
     return rtn
