@@ -47,8 +47,21 @@ async def on_message(message):
         await client.send_message(message.channel, msg)
 
     if message.content.startswith('!rollcharacter'):
-        msg = 'Here is your DnD character! \n\n'+dndlogic.rollCharacter().format(message)
-        await client.send_message(message.channel, msg)
+        initialmsg = message.content.format(message)
+        arguments = initialmsg.split(" ")
+        if len(arguments) == 1:
+            msg = 'Here is your DnD character! \n\n'+dndlogic.rollCharacter().format(message)
+            await client.send_message(message.channel, msg)
+        elif len(arguments) == 3:
+            msg = dndlogic.rollCharacterInput(arguments[1], arguments[2]).format(message)
+            await client.send_message(message.channel, msg)
+        else:
+            msg = "Try '!rollcharacter' for a fully randomized character, or '!rollcharacter <race> <class>' to" \
+                  " choose your race and/or class! If you wish to randomize either your race or class, simply type" \
+                  " 'any' in place of the race and/or class!"
+            await client.send_message(message.channel, msg)
+
+
 
     if message.content.startswith('!kingdedede'):
         await playAudio(message.author, 'https://www.youtube.com/watch?v=-KOlVl77SkQ&t=')
