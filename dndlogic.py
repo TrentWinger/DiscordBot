@@ -19,7 +19,7 @@ def rollStats():
 
 #
 # This function contains a list of D&D 5th Edition Races and Classes
-# More importantly, it will "roll" a character with race, class, and appropriate statistic scores.
+# More importantly, it will "roll" a character with race, subrace, class, and appropriate ability scores.
 #
 def rollCharacter():
     raceList = ['Aarakocra', 'Aasimar', 'Bugbear', 'Centaur', 'Changeling',
@@ -29,7 +29,7 @@ def rollCharacter():
                 'Minotaur', 'Orc', 'Shifter', 'Simic Hybrid', 'Tabaxi', 'Tiefling', 'Tortle',
                 'Triton', 'Vedalken', 'Viashino', 'Warforged', 'Yuan-ti Pureblood'] #This contains a list of race names as strings
     classList = ['Barbarian', 'Bard', 'Cleric', 'Druid', 'Fighter', 'Monk', 'Paladin',
-                 'Ranger', 'Rogue', 'Sorcerer', 'Warlock', 'Wizard', 'Blood Hunter'] #This contains a list of class names as strings
+                 'Ranger', 'Rogue', 'Sorcerer', 'Warlock', 'Wizard', 'Bloodhunter'] #This contains a list of class names as strings
 
     charRace = random.choice(raceList)
     charClass = random.choice(classList)
@@ -45,7 +45,7 @@ def rollCharacterInput(raceInput, classInput):
                 'Minotaur', 'Orc', 'Shifter', 'Simic Hybrid', 'Tabaxi', 'Tiefling', 'Tortle',
                 'Triton', 'Vedalken', 'Viashino', 'Warforged', 'Yuan-ti Pureblood'] #This contains a list of race names as strings
     classList = ['Barbarian', 'Bard', 'Cleric', 'Druid', 'Fighter', 'Monk', 'Paladin',
-                 'Ranger', 'Rogue', 'Sorcerer', 'Warlock', 'Wizard', 'Blood Hunter'] #This contains a list of class names as strings
+                 'Ranger', 'Rogue', 'Sorcerer', 'Warlock', 'Wizard', 'Bloodhunter'] #This contains a list of class names as strings
 
     raceFound = False
     if raceInput.casefold() == 'any':
@@ -84,7 +84,7 @@ def constructCharacter(charRace, charClass):
     # From here until the next block is code for race modifiers.#
     #############################################################
 
-    feralTraits = ["Devil's Tongue", "Hellfire", "Winged"]
+    feralTraits = ["Devil's Tongue", "Hellfire", "Winged"] #A dictionary of bonuses for Feral Tieflings.
     races = {
         'Aarakocra': {'str': 0, 'dex': 2, 'con': 0, 'int': 0, 'wis': 1, 'cha': 0,
                       'traits': {'Flight, Talons'},
@@ -639,7 +639,7 @@ def constructCharacter(charRace, charClass):
         'Wizard': {'primary': 'int', 'secondary': 'con',
                    'traits': {'Spellcasting', 'Arcane Recovery', 'Cantrips (3)'}
                    },
-        'Blood Hunter': {'primary': 'str', 'secondary': 'dex',
+        'Bloodhunter': {'primary': 'str', 'secondary': 'dex',
                          'traits': {"Hunter's Bane", 'Crimson Rite'}
                          },
     }  # A dictionary of classes, with their "preferred" stats.
@@ -723,18 +723,24 @@ def constructCharacter(charRace, charClass):
     # Race modifiers end here.#
     ###########################
 
-    # Str, Dex, Con, Int, Wis, Cha
+    ########################################################
+    #  Below, we pick a subrace of the race, if applicable #
+    ########################################################
 
-    subRaces = races[charRace]['subraces']
+    subRaces = races[charRace]['subraces'] #Choose a subrace
 
-    if len(subRaces) != 0:
+    if len(subRaces) != 0: #Check to see if subraces actually exist for this race.
         charSub = random.choice(list(subRaces))
     else:
-        charSub = None
+        charSub = None #If the race has no subraces, there is no subrace applied (duh).
 
-    #################################################################
+    #############################
+    #Subrace selection ends here#
+    #############################
+
+    ##################################################################
     # These add the base features from the race, subrace not included#
-    #################################################################
+    ##################################################################
 
     charFeatures = []
     for x in races[charRace]['traits']:
@@ -772,10 +778,14 @@ def constructCharacter(charRace, charClass):
 
     for x in classes[charClass]['traits']:
         charFeatures.append(x)
+
     #######################################################################
     # Subrace modifiers end here. Ability score bonus modifiers begin here.#
     #######################################################################
 
+    ##############################
+    # Bonus Modifiers begin here.#
+    ##############################
     strBonus = (charStr - 10) // 2
     if strBonus >= 0:
         strBonus = '+' + str(strBonus)
@@ -795,9 +805,13 @@ def constructCharacter(charRace, charClass):
     if chaBonus >= 0:
         chaBonus = '+' + str(chaBonus)
 
-    #############################
-    # Subrace modifiers end here.#
-    #############################
+    ############################
+    # Bonus modifiers end here.#
+    ############################
+
+    ########################################################################
+    # Converting the features and languages from arrays into strings below.#
+    ########################################################################
 
     charFeatures.sort()
     charLanguages.sort()
@@ -817,9 +831,13 @@ def constructCharacter(charRace, charClass):
     if charLangStr.endswith(', '):
         charLangStr = charLangStr[:-2]
 
-    #
-    # Alignments logic below
-    #
+    ##########################################
+    # Feature and language tidying ends here.#
+    ##########################################
+
+    ##########################
+    # Alignments logic below #
+    ##########################
 
     charAlignment = str  # Create a string to append later
 
@@ -834,19 +852,43 @@ def constructCharacter(charRace, charClass):
     else:
         charAlignment = charMoral + " " + charAlign
 
-    # The asterisks are simply for Discord formatting.
+    ##############################
+    # Alignments logic ends here.#
+    ##############################
+
+    ##############################################################################################
+    # The following code gives the character a gender, which is simply for extra character flair.#
+    ##############################################################################################
+
+    charGender = random.choice(['Male', 'Female'])
+
+    #######################################################
+    # The following code gives the character an age range #
+    #######################################################
+
+    charAge = random.choice(['Adolescent', 'Young Adult', 'Adult', 'Elderly'])
+
+    #####################################################################################
+    # Organize and return all of the character information in a Discord-friendly format.#
+    #####################################################################################
+
 
     rtn = '**Race: **' + str(charRace) + '\n' + \
           rtnSub + \
           '**Class: **' + str(charClass) + '\n' + \
           '**Alignment: **' + charAlignment + '\n\n' \
-                                              '**Strength: **' + str(charStr) + '   (' + str(strBonus) + ')''\n' + \
+          '**Strength: **' + str(charStr) + '   (' + str(strBonus) + ')''\n' + \
           '**Dexterity: **' + str(charDex) + '   (' + str(dexBonus) + ')''\n' + \
           '**Constitution: **' + str(charCon) + '   (' + str(conBonus) + ')''\n' + \
           '**Intelligence: **' + str(charInt) + '   (' + str(intBonus) + ')''\n' + \
           '**Wisdom: **' + str(charWis) + '   (' + str(wisBonus) + ')''\n' + \
           '**Charisma: **' + str(charCha) + '   (' + str(chaBonus) + ')''\n' + \
           '**Features and Traits: **' + str(charFeatStr) + '\n' + \
-          '**Languages: **' + str(charLangStr)
+          '**Languages: **' + str(charLangStr)+'\n' + \
+          '***---------------------------------------------***'+'\n'+\
+          '*The following properties are for flair only*'+'\n'+\
+          '***---------------------------------------------***'+'\n'+\
+          '**Gender: **' + str(charGender)+ '\n'+\
+          '**Age Range **'+ str(charAge) + '\n'
     return rtn
 
