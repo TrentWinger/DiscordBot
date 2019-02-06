@@ -23,6 +23,21 @@ def percentFall2018():
 
     return str(round(decimalDone, 4)) #Converting from decimal to string
 
+def percentWinter2019():
+
+    start = datetime.datetime(2019, 1, 8, 0, 0, 0, 0)
+    now = datetime.datetime.now() #Now
+    end = datetime.datetime(2019, 4, 24, 0, 0 , 0 , 0)
+
+    total = end-start
+    daysSpent = now-start
+
+    percentDone = (daysSpent/total) * 100
+    decimalDone = decimal.Decimal(percentDone) #Converting from float to decimal
+
+    return str(round(decimalDone, 4)) #Converting from decimal to string
+
+
 def rockPaperScissors(hand):
 
     hand = str.lower(hand)

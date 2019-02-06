@@ -46,6 +46,10 @@ async def on_message(message):
         msg = 'The Fall 2018 semester is '+botlogic.percentFall2018()+'% over.'
         await client.send_message(message.channel, msg)
 
+    if message.content.startswith('!winter2019'):
+        msg = 'The Winter 2019 semester is ' + botlogic.percentWinter2019() + '% over.'
+        await client.send_message(message.channel, msg)
+
     if message.content.startswith('!rollcharacter'):
         initialmsg = message.content.format(message)
         arguments = initialmsg.split(" ")
